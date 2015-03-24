@@ -7,6 +7,8 @@ extern _ft_strlen
 section .data
 buff: db "(null)", 10
 size equ $ - buff
+nl: db 10
+nls equ $ - nl
 
 section .text
 
@@ -18,8 +20,10 @@ _ft_puts:
 	mov rdx, rax
 	mov rdi, 1
 	mov rax, MACH_SYSCALL(WRITE)
-	push 10
-	pop rax
+	syscall
+	lea rsi, [rel nl]
+	mov rdx, 1
+	mov rax, MACH_SYSCALL(WRITE)
 	syscall
 	jmp end
 
